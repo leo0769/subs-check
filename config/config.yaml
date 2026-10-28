@@ -1,0 +1,69 @@
+# subs-check 配置（GitHub Actions 环境定制版）
+print-progress: true
+
+# 测活并发
+concurrent: 50
+# 测速并发（低于测活并发，避免抢带宽）
+speed-concurrent: 20
+# 检查间隔（Actions 中每轮跑完即被终止提交，此值仅兜底）
+check-interval: 60
+
+# 不限制保存数量
+success-limit: 0
+# 节点超时(毫秒)
+timeout: 5000
+# 存活测试：真实代理请求（与 SmartSub 的纯 TCP 握手有本质区别）
+alive-test-url: http://gstatic.com/generate_204
+# 测速地址（官方默认大文件）
+speed-test-url: https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z
+# 免费节点普遍低速，不做速度门槛（0=不舍弃），仅按存活筛选
+min-speed: 0
+download-timeout: 10
+download-mb: 10
+
+# 订阅服务端口（runner 内部使用）
+listen-port: ":8199"
+enable-web-ui: false
+sub-store-port: ""
+
+# 以 IP 归属地重命名节点
+rename-node: true
+
+# 关闭流媒体检测，缩短单轮时间
+media-check: false
+
+# 输出目录
+output-dir: "output"
+
+# 保存到本地（由工作流负责提交回仓库）
+save-method: local
+
+# mihomo 覆写（内置 ACL4SSR 规则）
+mihomo-overwrite-url: "http://127.0.0.1:8199/sub/ACL4SSR_Online_Full.yaml"
+
+# 订阅源（官方维护的免费聚合源 + SmartSub 的 gist 产出）
+sub-urls-retry: 3
+sub-urls-concurrent: 20
+sub-urls-get-ua: "clash.meta (https://github.com/beck-8/subs-check)"
+sub-urls:
+  - "https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml"
+  - "https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc0.yaml"
+  - "https://raw.githubusercontent.com/mahdibland/SSAggregator/master/sub/sub_merge_yaml.yml"
+  - "https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.yml"
+  - "https://raw.githubusercontent.com/zhangkaiitugithub/passcro/main/speednodes.yaml"
+  - "https://raw.githubusercontent.com/aiboboxx/v2rayfree/refs/heads/main/README.md"
+  - "https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/snippets/nodes.meta.yml"
+  - "https://raw.githubusercontent.com/Ruk1ng001/freeSub/main/clash.yaml"
+  - "https://raw.githubusercontent.com/SoliSpirit/v2ray-configs/main/all_configs.txt"
+  - "https://raw.githubusercontent.com/ripaojiedian/freenode/main/clash"
+  - "https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml"
+  - "https://raw.githubusercontent.com/actionsfz/v2ray/refs/heads/master/all.yaml"
+  - "https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub"
+  - "https://raw.githubusercontent.com/acymz/AutoVPN/main/data/V2.txt"
+  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/wenode.txt"
+  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/v2rayshare.txt"
+  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/nodefree.txt"
+  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/ndnode.txt"
+  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/clashmeta.txt"
+  - "https://raw.githubusercontent.com/xiaoji235/airport-free/main/v2ray.txt"
+  - "https://gist.githubusercontent.com/leo0769/787b708aa33e0307b1ec48e13119f0ea/raw/subscription.txt#SmartSub"
