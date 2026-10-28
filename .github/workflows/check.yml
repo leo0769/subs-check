@@ -71,3 +71,29 @@ jobs:
           git commit -m "节点检测 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
           git push
         fi
+
+    - name: 生成邮件报告
+      id: report
+      if: always()
+      env:
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      run: |
+        python3 scripts/mail_report.py
+        USABLE=$(sed 's/\x1b\[[0-9;]*m//g' check.log | grep -oP '(?<=可用节点数量: )\d+' | tail -1)
+        echo "SUBJECT=📡 节点检测报告 $(TZ='Asia/Shanghai' date '+%m-%d %H:%M') · 可用节点 ${USABLE:-0} 个" >> "$GITHUB_OUTPUT"
+
+    - name: 发送邮件通知
+      if: always() && hashFiles('mail_report.md') != ''
+      continue-on-error: true
+      uses: dawidd6/action-send-mail@v4
+      with:
+        server_address: ${{ secrets.SMTP_HOST }}
+        server_port: ${{ secrets.SMTP_PORT || 465 }}
+        secure: true
+        username: ${{ secrets.SMTP_USER }}
+        password: ${{ secrets.SMTP_PASS }}
+        subject: ${{ steps.report.outputs.SUBJECT }}
+        to: ${{ secrets.MAIL_TO }}
+        from: subs-check <${{ secrets.SMTP_USER }}>
+        convert_markdown: true
+        body: file://mail_report.md
