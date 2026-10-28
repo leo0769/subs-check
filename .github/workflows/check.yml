@@ -51,8 +51,9 @@ jobs:
         sleep 2
         # .gitignore 忽略 output/ 和 mihomo.yaml，重命名后强加提交
         mkdir -p result
-        cp output/*.yaml output/base64.txt result/ 2>/dev/null || true
-        if [ -f result/mihomo.yaml ]; then mv result/mihomo.yaml result/clash_full.yaml; fi
+        cp output/all.yaml output/base64.txt result/ 2>/dev/null || true
+        # 用本地极简模板合成 clash_full.yaml（无联网 rule-providers，规避被墙的规则集 CDN）
+        python3 scripts/build_simple_clash.py || echo "⚠️ 合成 clash_full.yaml 失败，保留 all.yaml"
         git add result check.log 2>/dev/null || true
         git add -f result/clash_full.yaml 2>/dev/null || true
         echo "===== 结果文件 ====="
