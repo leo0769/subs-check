@@ -24,7 +24,8 @@ download-mb: 10
 # 订阅服务端口（runner 内部使用）
 listen-port: ":8199"
 enable-web-ui: false
-sub-store-port: ""
+# sub-store 必须开启，否则 mihomo.yaml / base64.txt 不会生成
+sub-store-port: ":8299"
 
 # 以 IP 归属地重命名节点
 rename-node: true
