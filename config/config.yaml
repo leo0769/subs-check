@@ -8,10 +8,11 @@ speed-concurrent: 20
 # 检查间隔（Actions 中每轮跑完即被终止提交，此值仅兜底）
 check-interval: 60
 
-# 保存成功节点上限（太多会拖慢手机 Clash，取 500 个质量较好的）
-success-limit: 500
-# 节点超时(毫秒)
-timeout: 5000
+# 保存成功节点上限（提高质量换数量：只保留响应最快的 300 个）
+success-limit: 300
+# 节点超时(毫秒)——2 秒内完不成代理请求的慢节点直接淘汰
+# （subs-check 不支持按延迟排序，用超时门槛等效筛选低延迟节点）
+timeout: 2000
 # 存活测试：真实代理请求（与 SmartSub 的纯 TCP 握手有本质区别）
 alive-test-url: http://gstatic.com/generate_204
 # 测速地址（官方默认大文件）
@@ -42,7 +43,7 @@ save-method: local
 # mihomo 覆写（内置 ACL4SSR 规则）
 mihomo-overwrite-url: "http://127.0.0.1:8199/sub/ACL4SSR_Online_Full.yaml"
 
-# 订阅源（官方维护的免费聚合源 + SmartSub 的 gist 产出）
+# 订阅源（官方维护的免费聚合源；SmartSub 已弃用并删除）
 sub-urls-retry: 3
 sub-urls-concurrent: 20
 sub-urls-get-ua: "clash.meta (https://github.com/beck-8/subs-check)"
@@ -62,4 +63,3 @@ sub-urls:
   - "https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub"
   - "https://raw.githubusercontent.com/acymz/AutoVPN/main/data/V2.txt"
   - "https://raw.githubusercontent.com/xiaoji235/airport-free/main/v2ray.txt"
-  - "https://gist.githubusercontent.com/leo0769/787b708aa33e0307b1ec48e13119f0ea/raw/subscription.txt#SmartSub"
