@@ -31,6 +31,14 @@ sub-store-port: ":8299"
 # 以 IP 归属地重命名节点
 rename-node: true
 
+# 只测试/保留抗封锁协议（剔除 ss 原版、http/socks5 明文、ssr、hysteria v1）
+# 这些裸奔协议在大陆几乎必被 GFW 干扰，保留只会浪费节点名额
+node-type:
+  - vless
+  - trojan
+  - hysteria2
+  - vmess
+
 # 关闭流媒体检测，缩短单轮时间
 media-check: false
 
