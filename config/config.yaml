@@ -8,8 +8,8 @@ speed-concurrent: 20
 # 检查间隔（Actions 中每轮跑完即被终止提交，此值仅兜底）
 check-interval: 60
 
-# 不限制保存数量
-success-limit: 0
+# 保存成功节点上限（太多会拖慢手机 Clash，取 500 个质量较好的）
+success-limit: 500
 # 节点超时(毫秒)
 timeout: 5000
 # 存活测试：真实代理请求（与 SmartSub 的纯 TCP 握手有本质区别）
@@ -60,10 +60,5 @@ sub-urls:
   - "https://raw.githubusercontent.com/actionsfz/v2ray/refs/heads/master/all.yaml"
   - "https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub"
   - "https://raw.githubusercontent.com/acymz/AutoVPN/main/data/V2.txt"
-  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/wenode.txt"
-  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/v2rayshare.txt"
-  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/nodefree.txt"
-  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/ndnode.txt"
-  - "https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/clashmeta.txt"
   - "https://raw.githubusercontent.com/xiaoji235/airport-free/main/v2ray.txt"
   - "https://gist.githubusercontent.com/leo0769/787b708aa33e0307b1ec48e13119f0ea/raw/subscription.txt#SmartSub"
