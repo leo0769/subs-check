@@ -49,9 +49,12 @@ jobs:
         sleep 15
         kill $BGPID 2>/dev/null || pkill -f 'subs-check' || true
         sleep 2
-        # .gitignore 忽略 output/，复制到 result/ 再提交
+        # .gitignore 忽略 output/ 和 mihomo.yaml，重命名后强加提交
         mkdir -p result
         cp output/*.yaml output/base64.txt result/ 2>/dev/null || true
+        if [ -f result/mihomo.yaml ]; then mv result/mihomo.yaml result/clash_full.yaml; fi
+        git add result check.log 2>/dev/null || true
+        git add -f result/clash_full.yaml 2>/dev/null || true
         echo "===== 结果文件 ====="
         ls -la result/ 2>/dev/null || echo "无结果文件"
         echo "===== 日志摘要 ====="
