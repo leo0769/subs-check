@@ -8,17 +8,21 @@ speed-concurrent: 20
 # 检查间隔（Actions 中每轮跑完即被终止提交，此值仅兜底）
 check-interval: 60
 
-# 保存成功节点上限（提高质量换数量：只保留响应最快的 300 个）
+# 保存成功节点上限。
+# 注意：success-limit 是「攒够 N 个通过测速的节点就熔断流水线」，
+# 不是「从全部节点里挑最好的 N 个」——所以必须先设 min-speed 质量门槛，
+# 否则它收录的是「最先响应的 300 个」，而非「最快的 300 个」。
 success-limit: 300
 # 节点超时(毫秒)——2 秒内完不成代理请求的慢节点直接淘汰
 # （subs-check 不支持按延迟排序，用超时门槛等效筛选低延迟节点）
 timeout: 2000
 # 存活测试：真实代理请求（与 SmartSub 的纯 TCP 握手有本质区别）
-alive-test-url: http://gstatic.com/generate_204
+alive-test-url: https://www.gstatic.com/generate_204
 # 测速地址（官方默认大文件）
 speed-test-url: https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z
-# 免费节点普遍低速，不做速度门槛（0=不舍弃），仅按存活筛选
-min-speed: 0
+# 最低速度门槛（MB/s）。0 = 不筛速度，会把 100~500KB/s 的弱节点一并收录，
+# 这些节点正好是延迟最低、最容易被 url-test 选中的"小口子"，是"质量差"的主因。
+min-speed: 1
 download-timeout: 10
 download-mb: 10
 
