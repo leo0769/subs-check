@@ -20,9 +20,10 @@ timeout: 2000
 alive-test-url: https://www.gstatic.com/generate_204
 # 测速地址（官方默认大文件）
 speed-test-url: https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z
-# 最低速度门槛（MB/s）。0 = 不筛速度，会把 100~500KB/s 的弱节点一并收录，
-# 这些节点正好是延迟最低、最容易被 url-test 选中的"小口子"，是"质量差"的主因。
-min-speed: 1
+# 最低速度门槛，单位 KB/s（官方示例默认 512，注意不是 MB/s）。
+# 0 = 不筛速度，会把 6KB/s~500KB/s 的弱节点一并收录；
+# 这类节点延迟最低、最容易被 url-test 选中，正是"质量差"的主因。
+min-speed: 1024
 download-timeout: 10
 download-mb: 10
 
